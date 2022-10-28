@@ -14,10 +14,10 @@ class Feedback extends Component {
     this.setState(prevState => ({ [options]: prevState[options] + 1 }));
   };
   countTotalFeedback() {
-    return Object.values(this.state).reduce((acc, item)=> acc + item, 0)
+    return Object.values(this.state).reduce((acc, item)=> acc + item)
   }
   countPositiveFeedbackPercentage() {
-    return (this.state.good / this.countTotalFeedback() ||1) * 100;
+    return (this.state.good /( this.countTotalFeedback()||1)) * 100;
   }
   render() {
     const total = this.countTotalFeedback();
