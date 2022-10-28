@@ -1,0 +1,11 @@
+.list {
+  list-style: none;
+}
+.item {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: inherit;
+}
+.item:not(:last-child) {
+  margin-bottom: 5px;
+}
