@@ -14,27 +14,30 @@ class Feedback extends Component {
     this.setState(prevState => ({ [options]: prevState[options] + 1 }));
   };
   countTotalFeedback() {
-    return this.state.good + this.state.neutral + this.state.bad;
+    return Object.values(this.state).reduce((acc, item)=> acc + item, 0)
   }
   countPositiveFeedbackPercentage() {
-    return (this.state.good / this.countTotalFeedback()) * 100;
+    return (this.state.good / this.countTotalFeedback() ||1) * 100;
   }
   render() {
+    const total = this.countTotalFeedback();
+    const option = Object.keys(this.state);
     return (
+   
       <>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={Object.keys(this.state)}
+            options={option}
             onLeaveFeedback={this.onLeaveFeedback}
           />
         </Section>
         <Section title="Statistics">
-          {!isNaN(this.countPositiveFeedbackPercentage()) ? (
+          {total? (
             <Statistics
               good={this.state.good}
               neutral={this.state.neutral}
               bad={this.state.bad}
-              total={this.countTotalFeedback()}
+              total={total}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           ) : (
